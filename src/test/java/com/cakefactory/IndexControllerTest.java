@@ -1,6 +1,6 @@
 package com.cakefactory;
 
-import com.cakefactory.model.Item;
+import com.cakefactory.domain.Item;
 import com.cakefactory.services.Catalog;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;

@@ -1,12 +1,10 @@
 package com.cakefactory.services;
 
-import com.cakefactory.model.Item;
+import com.cakefactory.domain.Item;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @Service
 public class InMemoryCatalog implements Catalog {

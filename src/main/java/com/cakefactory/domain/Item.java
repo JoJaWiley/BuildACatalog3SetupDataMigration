@@ -1,4 +1,4 @@
-package com.cakefactory.model;
+package com.cakefactory.domain;
 
 import lombok.Data;
 
