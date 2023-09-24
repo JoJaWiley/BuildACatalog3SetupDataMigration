@@ -1,6 +1,6 @@
 package com.cakefactory.services;
 
-import com.cakefactory.model.Item;
+import com.cakefactory.domain.Item;
 
 import java.util.List;
 
