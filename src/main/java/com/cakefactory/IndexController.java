@@ -17,11 +17,14 @@ public class IndexController {
         this.catalog = catalog;
     }
 
-    @GetMapping("/index")
-    public ModelAndView findAllItems(Map<String, Object> model) {
+    @GetMapping("/")
+    public ModelAndView findAllItems() {
         var items = catalog.findAllItems();
-        model.put("items", items);
-        return new ModelAndView("index", model);
+        ModelAndView mv = new ModelAndView("index");
+        mv.addObject("items", items);
+        mv.addObject("myName", "Josh");
+
+        return mv;
     }
 
 }
