@@ -22,7 +22,6 @@ public class IndexController {
         var items = catalog.findAllItems();
         ModelAndView mv = new ModelAndView("index");
         mv.addObject("items", items);
-        mv.addObject("myName", "Josh");
 
         return mv;
     }
