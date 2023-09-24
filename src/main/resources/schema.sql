@@ -1,7 +1,5 @@
-CREATE DATABASE catalog;
-
-CREATE TABLE items (
-    id varchar(10) NOT NULL PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    price DOUBLE NOT NULL
+CREATE TABLE IF NOT EXISTS items (
+    id VARCHAR(50) NOT NULL PRIMARY KEY,
+    name varchar(100) NOT NULL,
+    price DOUBLE PRECISION NOT NULL
 );

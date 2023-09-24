@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 @Primary
-public class DBCatalog {
+public class DBCatalog implements Catalog {
 
     private final CatalogRepository repository;
 
@@ -18,12 +18,12 @@ public class DBCatalog {
         this.repository = repository;
     }
 
-    private Iterable<Item> getAllEntityItems() {
+    private List<Item> getAllEntityItems() {
         return repository.findAll();
     }
 
     public List<com.cakefactory.domain.Item> findAllItems() {
-        Iterable<Item> items = this.getAllEntityItems();
+        List<Item> items = this.getAllEntityItems();
         List<com.cakefactory.domain.Item> domainItems = new ArrayList<>();
 
         for(Item item : items) {
