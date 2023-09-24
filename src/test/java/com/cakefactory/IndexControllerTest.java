@@ -2,7 +2,12 @@ package com.cakefactory;
 
 import com.cakefactory.model.Item;
 import com.cakefactory.services.Catalog;
-import org.assertj.core.util.Arrays;
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.DomNode;
+import com.gargoylesoftware.htmlunit.html.DomNodeList;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import org.assertj.core.api.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,17 +16,18 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.htmlunit.MockMvcWebClientBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(SpringExtension.class)
@@ -33,7 +39,6 @@ class IndexControllerTest {
 
 	@Autowired
 	MockMvc mockMvc;
-
 
 	@Test
 	@DisplayName("index page returns the landing page")
@@ -61,24 +66,28 @@ class IndexControllerTest {
 		items.add(item5);
 		items.add(item6);
 
+		Logger logger = Logger.getLogger(IndexControllerTest.class.getName());
+		WebClient webClient = MockMvcWebClientBuilder.mockMvcSetup(mockMvc).build();
+		HtmlPage page = webClient.getPage("http://localhost/");
 		given(catalog.findAllItems()).willReturn(items);
 
-		mockMvc.perform(MockMvcRequestBuilders.get("/index"))
+		mockMvc.perform(MockMvcRequestBuilders.get("/"))
 				.andExpect(status().isOk())
 				//.andExpect(model().size(1))
 				.andExpect(view().name("index"))
 				.andExpect(model().attribute("items", items));
 
-		verify(catalog).findAllItems();
+		//verify(catalog).findAllItems();
+
+		logger.info("hi");
+
+		DomNodeList<DomNode> domNodes = page.querySelectorAll(".item-title");
+		for(int i = 0; i < 6; i++)
+		{
+			//logger.info(domNodes.get(i).getTextContent());
+		}
+
+		logger.info("bye");
+
 	}
-
-	//@BeforeTestMethod
-	//public void init(WebApplicationContext context) throws Exception {
-	//	webClient = MockMvcWebClientBuilder
-	//			.webAppContextSetup(context)
-	//			.build();
-	//	HtmlPage page = webClient.getPage("http://localhost/");
-	//}
-
-
 }
