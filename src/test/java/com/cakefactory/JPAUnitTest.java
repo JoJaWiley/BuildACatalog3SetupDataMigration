@@ -22,15 +22,20 @@ public class JPAUnitTest {
     CatalogRepository repository;
 
     @Test
-    public void findAllTest() {
-        Item item1 = new Item("a", "test item1", 2.99);
+    public void saveItemsTest() {
+        Item item1 = new Item("one", "test item1", 2.99);
         entityManager.persist(item1);
 
-        Item item2 = new Item("b", "test item2", 2.99);
+        Item item2 = new Item("two", "test item2", 2.99);
         entityManager.persist(item2);
+        var items = repository.findAll();
 
-        List<Item> items = repository.findAll();
+        assertThat(items).contains(item1, item2);
+    }
 
-        assertThat(items).hasSize(2).contains(item1, item2);
+    @Test
+    void canFetchEntitiesFromDatabaseTest() {
+        var items = repository.findAll();
+        assertThat(items).anyMatch(item -> "Red Velvet".equalsIgnoreCase(item.getName()));
     }
 }
