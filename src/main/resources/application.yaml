@@ -3,6 +3,9 @@ spring:
     init:
       mode: always
 
+  application:
+    name: flywayapp
+
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/catalog?useLegacyDatetimeCode=false&serverTimezone=UTC
@@ -18,3 +21,8 @@ spring:
       ddl-auto: validate
 
 
+flyway:
+  url: jdbc:postgresql://localhost:5432/
+  schemas: catalog
+  user: postgres
+  password: admin
